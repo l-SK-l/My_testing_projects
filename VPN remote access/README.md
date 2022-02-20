@@ -9,4 +9,4 @@
 
 
 # Схема стенда
-![DUT](https://github.com/l-SK-l/My_projects/blob/main/VPN-remote-access/assets/VPN.png)
+![DUT](https://github.com/l-SK-l/My_projects/blob/main/VPN remote access/assets/VPN.png)
