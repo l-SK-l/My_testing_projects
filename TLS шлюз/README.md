@@ -36,8 +36,8 @@
 
 ```
 [[outputs.influxdb]]
-  # urls = ["http://192.168.254.250:8086"] # CHANGE THIS!
-  # database = "devops-tls-perfomance_v2" # CHANGE THIS!
+  # urls = ["http://x.x.x.x:8086"] # CHANGE THIS!
+  # database = "xxx" # CHANGE THIS!
 ```
 Приложен пример конфигурации с коментариями к параметрам, описано где в графане указывает внешняя база InfluxDB и как она указывается в переменных Grafana.
 
