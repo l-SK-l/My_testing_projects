@@ -5,9 +5,11 @@
 **This material is not an example of a testing methodology, but only shows the tools used and the approach to solving the problem!**
 
 # Content
+- [VPN remote access](#vpn-remote-access)
+- [Content](#content)
 - [The scheme of the stand](#the-scheme-of-the-stand)
   - [Description of the components of the stand](#description-of-the-components-of-the-stand)
-      - [Stand Configuration](#stand-Configuration)
+    - [Configuring a test environment](#configuring-a-test-environment)
   - [Description of interaction](#description-of-interaction)
 - [Configuration files](#configuration-files)
   - [YandexTank с Phantom](#yandextank-с-phantom)
@@ -15,7 +17,7 @@
     - [Wget](#wget)
     - [Additional Commands](#additional-commands)
 - [Test Description](#test-description)
-  - [Monitoring](#monitoring)
+- [Monitoring](#monitoring)
   - [Description of monitoring tools](#description-of-monitoring-tools)
   - [Description of resource monitoring](#description-of-resource-monitoring)
 - [Report](#report)
@@ -26,7 +28,7 @@
 ## Description of the components of the stand
 Describes the scheme of the stand with brief explanations of each element
 
-### Stand Configuration
+### Configuring a test environment
 Described: 
 - Physical machine settings
 - VPN GW configuration describing important settings

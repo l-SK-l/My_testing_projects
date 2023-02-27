@@ -1,83 +1,84 @@
-# TLS шлюз
+# TLS gateway
 
-**Тонкости, названия внутрених продуктов и инструментов опущены, оставлена только основная информация**
+**The names of internal products and tools are hidden, only the basic information is present**
 
-**Данный материал не является примером методики тестирования, а только показывает используемые инструменты и подход к решению задачи!**
+**This material is not an example of a testing methodology, but only shows the tools used and the approach to solving the problem!**
 
-
-
-# Оглавление
-- [Настройка TLS шлюза и Нагрузочных машин](#настройка-tls-шлюза-и-нагрузочных-машин)
-- [Схема стенда](#схема-стенда)
-  - [Описание параметров окружения](#описание-параметров-окружения)
-      - [TLS шлюз](#tls-шлюз-1)
-  - [Взаимодействие](#взаимодействие)
-      - [Общее описание тестирования](#общее-описание-тестирования)
-  - [Управление](#управление)
-      - [Сеть](#сеть)
-      - [Машина управления TLS шлюзом](#машина-управления-tls-шлюзом)
-      - [Мониторинг Grafana](#мониторинг-grafana)
+# Content
+- [TLS gateway](#tls-gateway)
+- [Content](#content)
+- [Configuring the TLS Gateway and Load machines](#configuring-the-tls-gateway-and-load-machines)
+- [The scheme of the stand](#the-scheme-of-the-stand)
+  - [Description of environment parameters](#description-of-environment-parameters)
+    - [TLS gateway](#tls-gateway-1)
+  - [Interaction](#interaction)
+    - [General description of testing](#general-description-of-testing)
+  - [Manage](#manage)
+    - [Network](#network)
+    - [TLS gateway management machine](#tls-gateway-management-machine)
+    - [Grafana Monitoring](#grafana-monitoring)
 - [Ansible](#ansible)
   - [Playbooks](#playbooks)
-  - [start_yandex_tank_vars.yaml](#start_yandex_tank_varsyaml)
-      - [Общие параметры](#общие-параметры)
-      - [rm_tap_files](#rm_tap_files)
-      - [copy_tap_files](#copy_tap_files)
-      - [start_tap](#start_tap)
-      - [remove_logs](#remove_logs)
-      - [deploy_load_TAPS_Jmeter_vars](#deploy_load_taps_jmeter_vars)
-      - [start_yandex_tank_vars](#start_yandex_tank_vars)
-  - [Запуск тестов](#запуск-тестов)
-- [Тесты](#тесты)
-  - [Без TLS шлюза](#без-tls-шлюза)
-  - [С TLS шлюзом](#с-tls-шлюзом)
-- [Отчёт](#отчёт)
+  - [start\_yandex\_tank\_vars.yaml](#start_yandex_tank_varsyaml)
+    - [General parameters](#general-parameters)
+    - [rm\_tap\_files](#rm_tap_files)
+    - [copy\_tap\_files](#copy_tap_files)
+    - [start\_tap](#start_tap)
+    - [remove\_logs](#remove_logs)
+    - [deploy\_load\_TAPS\_Jmeter\_vars](#deploy_load_taps_jmeter_vars)
+    - [start\_yandex\_tank\_vars](#start_yandex_tank_vars)
+  - [Test Run](#test-run)
+- [Tests](#tests)
+  - [Without a TLS gateway](#without-a-tls-gateway)
+  - [With a TLS gateway](#with-a-tls-gateway)
+- [Report](#report)
 
-В DUT представлены несколько режимов работы
+Several operating modes are presented in the DUT
 
-Все режимы тестируются в рамках одного стенда. Стенд подобран для максимальной програмно-аппаратной платформы, для более слабых платформ, стенд можно сокращать для экономии ресурсов виртуализации.
-# Настройка TLS шлюза и Нагрузочных машин
-По отдельным мануалам
+All modes are tested within a single bench. The bench is selected for the maximum hardware and software platform, for weaker platforms, the bench can be reduced to save virtualization resources.
 
-# Схема стенда
+# Configuring the TLS Gateway and Load machines
+By individual manuals.
+
+# The scheme of the stand
 ![DUT](https://github.com/l-SK-l/My_projects/blob/main/TLS%20%D1%88%D0%BB%D1%8E%D0%B7/assets/DUT.png)
 
-## Описание параметров окружения
-Описание технических характеристик VMs и сетевых интерфейсов, ссылки на отдельную статью тюнинга linux под высокую нагрузку.
+## Description of environment parameters
+A description of the VMs specifications and network interfaces, links to a separate article tuning linux for high load.
 
-### TLS шлюз
-Описание тонких настроек для тестирования: Лицензирование, выпуск сертификатов, формирование эмуляторов TLS туннелей, настройка сети, конфигурации Telegraf и скриптов снятия дополнительных метрик, настройка дашборда в Grafana.
+### TLS gateway
+Description of fine-tuning for testing: Licensing, issuing certificates, generating TLS tunnel emulators, network configuration, Telegraf configuration and extra metrics scripts, dashboard configuration in Grafana.
 
-## Взаимодействие
-### Общее описание тестирования
-Тестирование TLS шлюза построено на тестировании веб серверов с помощью инструментов расположенных на нагрузочных машинах. Т.к. делать запросы на защищённые веб сервера через TLS шлюз можно только через протокол TLS с GOST, то на нагрузочных машинах запускаются эмуляторы, поднимающие туннели с TLS шлюзом по протоколу TLS с необходимыми шифронаборами, данные туннели слушаю трафик на lo интерфейсе с определёнными портами и перенаправляют запросы в туннель до TLS шлюза, а тот в своё очередь на защищённые ресурсы и обратно до нагрузочных машин.
+## Interaction
+### General description of testing
+TLS gateway testing is based on testing web servers with the help of tools located on load machines. Since requests to protected web servers through TLS gateway can be made only through TLS protocol with GOST, emulators are launched on load machines, raising tunnels with TLS gateway over TLS protocol with necessary encryption sets, these tunnels listen to traffic on lo interface with certain ports and redirect requests to tunnel to TLS gateway, and it in its turn to protected resources and back to load machines.
 ![interaction](https://github.com/l-SK-l/My_projects/blob/main/TLS%20%D1%88%D0%BB%D1%8E%D0%B7/assets/interaction.png)
 
-В качестве нагрузочного инструмента используется Yandex-Tank в связке с Jmeter. Yandex-Tank оставлен из за своей простоты сбора метрик, а так же из за лёгкой отладки при проблемах и внешнего мониторинга, если необходим более глубокий анализ результатов.
+Yandex-Tank in conjunction with Jmeter is used as a load tool. Yandex-Tank is left because of its ease of collecting metrics, as well as because of the easy debugging in case of problems and external monitoring, if a deeper analysis of the results is needed.
 
-## Управление
-### Сеть
-Описание сетевой части: адресация, сетевое взаимодействие управления и мониторинга.
+## Manage
+### Network
+Description of the network part: addressing, network management and monitoring.
 
-### Машина управления TLS шлюзом
-Данная VM предназначена для управления TLS шлюзом через WEB интерфейс и SSH, описывается процедура выпуска лицензий, управление сертификатами и клиентом с TLS шифрованием.
+### TLS gateway management machine
+This VM is designed to manage the TLS gateway through the WEB interface and SSH, describes the procedure for issuing licenses, certificate management and the client with TLS encryption.
 
-### Мониторинг Grafana
-На всех хостах стенда установлен Telegraf, в его конфигурации по пути `/etc/telegraf/telegraf.conf` указан сервер InfluxDB и имя базы данных в которую собираются все метрики.
+### Grafana Monitoring
+All hosts of the booth have Telegraf installed, its configuration in the path `/etc/telegraf/telegraf.conf` contains the server InfluxDB and the name of the database in which all metrics are collected.
 
 ```
 [[outputs.influxdb]]
   # urls = ["http://x.x.x.x:8086"] # CHANGE THIS!
   # database = "xxx" # CHANGE THIS!
 ```
-Приложен пример конфигурации с коментариями к параметрам, описано где в Grafana указывается внешняя база InfluxDB и как она указывается в переменных Grafana.
+It describes where in Grafana the external InfluxDB database is specified and how it is specified in Grafana variables.
 
 # Ansible
-Управление всеми тестами происходит через Ansible-playbook на Машине управления тестами **Ansible\InfluxDB**
+All tests are managed through the Ansible-playbook on the Test Management Machine **Ansible\InfluxDB**
 
 ## Playbooks
-Playbooks находятся по пути `/etc/ansible/playbooks`, для удобства запускаются из этой же директории.
-Рассмотрим их подробнее:
+Playbooks are located under `/etc/ansible/playbooks` and run from the same directory for convenience.
+Let's take a closer look at them:
 ## start_yandex_tank_vars.yaml
 
 ```
@@ -85,8 +86,8 @@ Playbooks находятся по пути `/etc/ansible/playbooks`, для уд
 - hosts: taps
   gather_facts: false
   vars:
-    async_value: 21600 #Асинхронный запуск минуту через сколько секунд отключится программа,starttap
-    cipher: XXX #Указываем шифронабор из нескольких варинтов
+    async_value: 21600 #Asynchronous start minute after how many seconds the program will shut down, starttap
+    cipher: XXX #Specify a cipher set of several variants
   roles:
     - rm_tap_files
     - copy_tap_files
@@ -100,18 +101,18 @@ Playbooks находятся по пути `/etc/ansible/playbooks`, для уд
   gather_facts: true
   roles:
     - remove_logs
-    - deploy_load_TAPS_Jmeter_vars #Роль по копированию конфигураций яндекс танка и jmeter
+    - deploy_load_TAPS_Jmeter_vars #Role to copy configurations of yandex tank and jmeter
     - start_yandex_tank_vars
   vars:
-     users: 20000 #Колличество пользователей в тесте на одну нагрузочную VM
-     rps: 3000 #Колличество RPS в теста, max и stable на одну нагрузочную VM
-     time_all: 900 #Общее время теста, должно ровняться сумме time_step 1 и 2
-     time_step_1: 600 #Время набора результатов
-     time_step_2: 300 #Время удержания результатов
-     addr: 127.0.0.1 #Адрес веб сервера или localhost
-     http_port: xxx #Порт веб сервера или localhost
-     file_name: xxx.html #Запрашиваемая страница с веб сервера
-     async_value: 2400 #Время ожидания выполнения всей задачи
+     users: 20000 #Number of users in test per load VM
+     rps: 3000 #Number of RPS in test, max and stable per load VM
+     time_all: 900 #Total test time, should be equal to the sum of time_step 1 and 2
+     time_step_1: 600 #Time to generate results
+     time_step_2: 300 #time to hold results
+     addr: 127.0.0.1 #Web server address or localhost
+     http_port: xxx #Web server or localhost port
+     file_name: xxx.html #Requested page from web server
+     async_value: 2400 #Time to wait for the whole task to execute
      poll: 0
 
 - hosts: taps
@@ -121,40 +122,40 @@ Playbooks находятся по пути `/etc/ansible/playbooks`, для уд
     - name: remove logs
       command: sh /root/rm_logs.sh
 ```
-Все переменные подписаны в комментариях после #, переменные нужны для более простого запуска теста из консоли, не редактируя значения в файле, пример команды будет в самом конце. 
-Рассмотрим порядок и Роли более подробнее.
-### Общие параметры
+All variables are signed in the comments after #, the variables are needed to make it easier to run the test from the console without editing the values in the file, an example command will be at the very end. 
+Let's look at the order and Roles in more detail.
+### General parameters
 
 **hosts: taps**
-Параметр hosts определяет группу хостов, на которую будут распространяться действия ниже. Файл hosts находится по пути `/etc/ansible/hosts` и в нём перечислены адреса Нагрузочных машин в сети управления.
+The hosts parameter defines the host group to which the actions below will apply. The hosts file is located at the path `/etc/ansible/hosts` and it lists the addresses of the Load machines in the management network.
 
 **gather_facts: true/false**
-Модуль, собирающий информацию о удалённой системе для последующего использования переменных, например hostname или версию ОС.
+A module that collects information about the remote system for the subsequent use of variables, such as hostname or OS version.
 
 **async_value:** 
-Асинхронный запуск команд, через сколько секунд отключится программа, если она не завершится сама или мы её не завершим принудительно. Ansible будет поддерживать связь с хостом, для контроля задачи.
+Asynchronous running commands, after how many seconds the program will shut down if it doesn't end by itself or we don't end it forcibly. Ansible will keep in touch with the host, to control the task.
 
 **vars:**
-Переменные, которые будут пробрасываться в конфигурационные файлы перед копированием их на удалённые хосты. Данный параметр можно менять из консоли через `–extra-vars` или `-e`, такой параметр будет более приоритетным, чем указанный в конфиге.
+Variables that will be sent to configuration files before copying them to remote hosts. This parameter can be changed from the console via `-extra-vars` or `-e`, this parameter will have a higher priority than the one specified in the config.
 
 **tasks:** 
-Простые задания, например выполнение команд на удалённых машинах.
+Simple tasks, such as executing commands on remote machines.
 
 **roles:**
-Это набор файлов, задач, шаблонов, переменных и обработчиков, которые вместе служат определенной цели. Роли будут рассмотрены более подробнее далее.
+This is a set of files, tasks, templates, variables, and handlers that together serve a specific purpose. The roles will be discussed in more detail later.
 
 ###  rm_tap_files
-Задача текущей роли: удалить старые скрипты запуска TAP, т.к. число скриптов можно будет менять в зависимости от TLS шлюза и числа физических интерфейсов.
+The task of the current role is to remove the old TAP launch scripts, because the number of scripts can be changed depending on the TLS gateway and the number of physical interfaces.
 
 ```
 - name: tap_scripts_rm
   shell: rm -rf /root/tap/tap_start*
 ```
 ### copy_tap_files
-Задача текущей роли: Подставить в темплейты скриптов шифронабор `{{ cipher }}` и скопировать скрипты запуска TAP на Нагрузочные машины. В задаче перечислены все скрипты запуска по отдельности.
-**ВНИМАНИЕ**
-В данной роли, в файле `/etc/ansible/roles/copy_tap_files/tasks/maim.yml` перечислены 16 скриптов для 2 физических интерфейсов, если для теста не нужно 2 физических интерфейс, например тестируется не старшие платформы, то необходимо закомментировать вторую половину конфига.
-Сама задача в сокращённом виде:
+Current role task: Substitute `{{ cipher }}` in the templates of the scripts and copy the TAP startup scripts to the Load machines. The task lists all the startup scripts individually.
+**ATTENTION**
+In this role, the file `/etc/ansible/roles/copy_tap_files/tasks/maim.yml` lists 16 scripts for 2 physical interfaces, if the test does not need 2 physical interfaces, for example tested not senior platforms, then you should comment out the second half of the config.
+The task itself is in abbreviated form:
 
 ```
 - name: copy tap
@@ -169,10 +170,10 @@ Playbooks находятся по пути `/etc/ansible/playbooks`, для уд
     dest: /root/tap/tap_start15.sh
     mode: 0777
 ```
-Тут было описание скриптов эмулирующий TLS туннели-TAP
+There was a description of scripts emulating TLS tunnels-TAP.
 
 ### start_tap
-Задача текущей роли: Запустить скрипты TAP на Нагрузочной машине и залогировать их работу. Лог сохраняется на каждой Нагрузочной машине `/root/logs_tap.sh.log`
+The task of the current role: Run the TAP scripts on the Load machine and log their operation. The log is saved on each Load machine `/root/logs_tap.sh.log`
 
 ```
 - name: run tap
@@ -181,32 +182,32 @@ Playbooks находятся по пути `/etc/ansible/playbooks`, для уд
     executable: /bin/bash
 ```
 ### remove_logs
-Задача текущей роли: Подчистка различного мусора на Нагрузочных машинах
+Current Role Task: Sweeping up various debris on the Loaders
 
 ```
 - name: Remove logs
   shell: rm -rf /root/wget-log* && rm -rf /root/java_pid* && rm -rf /root/xxx.* && rm -rf /root/xxx.* && rm -rf /root/xxx.* && rm -rf /root/index* && rm -Rfv /root/xxx && rm -Rfv /root/xxx && rm -rf /root/.ansible_async/* && rm -Rfv /root/*.html*
 ```
 ### deploy_load_TAPS_Jmeter_vars
-Задача текущей роли: Передать значения переменных в конфиги Jmeter, YandexTank и скрипт запуска YandexTank, после чего разложить файлы на нагрузочных машинах. 
+The task of the current role: Pass variable values to Jmeter, YandexTank configs and YandexTank startup script, and then distribute the files on the load machines.
 
 ```
-- name: copy load_TAPS #копирование конфига для ятанка на целевые машины, т.е. слонов
+- name: copy load_TAPS #copy config for jatank to target machines, i.e. elephants
   template:
     src: load_TAPS_Jmeter.j2
-    dest: /root/load_TAPS_Jmeter.yaml    
-- name: copy .jmx #Копирование конфига для Jmeter
+    dest: /root/load_TAPS_Jmeter.yaml
+- name: copy .jmx #Copy config for Jmeter
   template:
     src: test.j2
     dest: /root/test.jmx
     mode: 0777
-- name: copy yatank_script.sh #Копирование конфига для запуска YandexTank
+- name: copy yatank_script.sh #Copy config to run YandexTank
   template:
     src: yatank_script.j2
     dest: /root/yatank_script.sh
     mode: 0777
 ```
-Скрипт запуска YandexTank
+Script for starting YandexTank
 
 ```
 #!/bin/bash
@@ -218,54 +219,54 @@ killall -s SIGINT yandex-tank & killall -9 java & killall -9 tap;
 break; 
 done
 ```
-В скрипт запуска так же через переменные пробрасывается время теста `{{ time_all }}` и к нему добавляется 300 секунд для передачи последних метрик (можно уменьшить, если тест не высоконагружен), после чего, если тест не завершился корректно, то процессы Yandex-tank, jmeter и скрипты tap будут завершены принудительно через kill.
-После прохождения теста, дополнительное время необходимо для передачи всех метрик, которые долго обрабатываются при высоконагруженных тестах.
+In the startup script, the test time `{{ time_all }}` is also thrown through variables and 300 seconds are added to it to transfer the last metrics (it can be reduced if the test is not heavily loaded), after which, if the test did not end correctly, the processes Yandex-tank, jmeter and tap scripts will be forcibly terminated via kill.
+After the test passes, additional time is needed to transfer all metrics, which take a long time to process in high-load tests.
 
 ### start_yandex_tank_vars
-Задача текущей роли: Запустить тест через Yandex-tank и залогировать его работу. Лог сохраняется на каждой Нагрузочной машине `/root/logs_script.sh.log`
+The task of the current role: Run the test through Yandex-tank and log its operation. The log is saved on each Load machine `/root/logs_script.sh.log
 
 ```
 - name: start yandex-tank
   shell: sh yatank_script.sh > logs_script.sh.log 2>&1
 ```
 
-## Запуск тестов
-Запуск тестов производится из директории `/etc/ansible/playbooks`, с помощью команды `ansible-playbook start_yandex_tank_vars.yaml -e "users=xxx rps=xxx addr=xxx http_port=xxx file_name=xxx.html cipher=xxx"` где в переменные можно указать нужные параметры, не заходя в отдельные конфиги. По умолчанию тест длится 15 минут + через 300 секунд все процессы будут завершены принудительно!
-При необходимости можно запустить отдельные плейбуки:
+## Test Run
+The tests are run from the `/etc/ansible/playbooks` directory, with the command `ansible-playbook start_yandex_tank_vars.yaml -e "users=xxx rps=xxx addr=xxx http_port=xxx file_name=xxx.html cipher=xxx"` where you can specify the necessary parameters in variables without going into separate configs. By default, the test lasts 15 minutes + after 300 seconds all processes will be terminated forcibly!
+You can run individual playbooks if needed:
 
-**stop_yandex_tank.yaml** - Остановить процессы YandexTank
+**stop_yandex_tank.yaml** - Stop YandexTank processes
 
-**stop_taps.yaml** - Остановить процессы TAP и YandexTank
+**stop_taps.yaml** - Stop TAP and YandexTank processes
 
-**start_taps.yaml** - Запустить процессы TAP
+**start_taps.yaml** - Start TAP processes
 
-**start_yandex_tank.yaml** - Запустить процессы YandexTank
+**start_yandex_tank.yaml** - Start YandexTank processes
 
-**reboot_taps.yaml** - Перезагрузить нагрузочные машины
+**reboot_taps.yaml** - Restart the load machines
 
-# Тесты
-Описывается порядок тестирования и на что нужно обратить внимание.
+# Tests
+Describes the order of testing and what you need to pay attention to.
 
-## Без TLS шлюза
-Данные тесты производятся исключительно для того, чтобы удостовериться, что тестовая среда "чистая" и не является узким местом. Тесты без TLS шлюза ВСЕГДА должны быть лучше, чем с ним!
-Запускаются основные тесты показывающие максимальную производительность и стабильность. Выполняют перед всеми тестами.
+## Without a TLS gateway
+These tests are performed solely to make sure that the test environment is "clean" and is not a bottleneck. Tests without TLS gateway should ALWAYS be better than with it!
+Run basic tests that show maximum performance and stability. Run before all tests.
 
-## С TLS шлюзом
-Подробно описаны тесты, с какими шифронаборами выполняются, что измеряется с примерами команд и скриншотами результатов. Так же для примера описан один тест с шагами, действиями тестировщика и ошидаемым результатом.
+## With a TLS gateway
+Tests are described in detail, with which ciphers are executed, what is measured with examples of commands and screenshots of results. As an example, one test is described with the steps, the actions of the tester and the expected result.
 
-# Отчёт
-Тесты должны быть зафиксированы в Отчёте.
-Отчёт состоит из Шапки, Сводных данных. Конфигурации стенда и Результатов тестирования.
-В шапке должна присутствовать информация о Датах, Версии и Исполнителе.
-В Сводные данные заносится краткая информация о результатах теста.
-В конфигурации фиксируется информация о платформе.
-В Результаты заносятся более подробная информация о каждом тесте, а именно: 
-- Присутствует ссылка на дашборд Grafana, отфильтрованная по времени теста
-- Присутствует скриншот панели со сводными результатами, где отражена общая информация о результатах теста.
-- Присутствует скриншоты из командной строки системы с выводом диагностических команд определённых частей системы.
-- Указываются частные настройки стенда при необходимости.
-- В случае нестандартного поведение, вносится информация в свободной форме с приложенными диагностическими файлами.
+# Report
+Tests must be recorded in the Report.
+The report consists of Header, Summary data. Stand Configuration and Test Results.
+The Header should contain information about Dates, Version and Executor.
+Summary data must contain brief information about test results.
+Information about the platform is recorded in the configuration.
+In Results, more detailed information about each test is recorded, as follows: 
+- A link to the Grafana dashboard, filtered by test time, is present
+- A screenshot of the summary results panel is present, showing general information about the test results.
+- There are screenshots from the system command line showing the diagnostic commands for certain parts of the system.
+- Private settings of the test bench are indicated, if necessary.
+- In the case of non-standard behavior, free-form information with attached diagnostic files is entered.
 
-В случае тестирования максимальной производительности, результаты тестов снимаются при стабильной нагрузки, в последние минуты теста. 
+In the case of maximum performance testing, test results are taken at stable load, in the last minutes of the test. 
 
-Если ошибки начали появляться раньше, тест перезапускается с меньшими параметрами, приблизительно на момент массового появления ошибок. 
+If errors began to appear earlier, the test is restarted with lower parameters, approximately at the time of the mass occurrence of errors.
