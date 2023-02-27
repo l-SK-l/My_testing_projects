@@ -5,7 +5,7 @@
 **This material is not an example of a testing methodology, but only shows the tools used and the approach to solving the problem!**
 
 # Оглавление
-- [The scheme of the stand](#The scheme of the stand)
+- [The scheme of the stand](#the-scheme-of-the-stand)
   - [Описание компонентов стенда](#описание-компонентов-стенда)
       - [Конфигурация стенда](#конфигурация-стенда)
   - [Описание взаимодействия](#описание-взаимодействия)
