@@ -1,11 +1,11 @@
 # VPN remote access
 
-**The names of internal products and tools are hidden, only the basic information is present**
+**Тонкости, названия внутрених продуктов и инструментов опущены, оставлена только основная информация**
 
-**This material is not an example of a testing methodology, but only shows the tools used and the approach to solving the problem!**
+**Данный материал не является примером методики тестирования, а только показывает используемые инструменты и подход к решению задачи!**
 
 # Оглавление
-- [The scheme of the stand](#the-scheme-of-the-stand)
+- [Схема стенда](#схема-стенда)
   - [Описание компонентов стенда](#описание-компонентов-стенда)
       - [Конфигурация стенда](#конфигурация-стенда)
   - [Описание взаимодействия](#описание-взаимодействия)
@@ -20,7 +20,7 @@
   - [Описание мониторинга ресурсов](#описание-мониторинга-ресурсов)
 - [Отчёт](#отчёт)
 
-# The scheme of the stand
+# Схема стенда
 ![DUT](https://github.com/l-SK-l/My_projects/blob/main/VPN%20remote%20access/assets/VPN.png)
 
 ## Описание компонентов стенда
