@@ -1,0 +1,29 @@
+phantom:
+  enabled: false
+jmeter:
+  enabled: true
+  package: yandextank.plugins.JMeter
+  jmx: /root/0ktap.jmx
+  jmeter_path: /root/apache-jmeter-5.4.3/bin/jmeter
+  buffered_seconds: 0
+  ext_log: none
+  variables:
+console:
+  enabled: false
+rcheck:
+  enabled: true
+  mem_limit: 200
+#telegraf:
+#  enabled: false
+#overload:
+#  enabled: false
+#  package: yandextank.plugins.DataUploader
+#  token_file: token.txt
+#  job_name: QA
+#  job_dsc: test_tls
+influx:
+  enabled: true
+  address: x.x.x.x
+  database: xxx
+  tank_tag: yatank_{{ ansible_hostname }}
+  labeled: true
