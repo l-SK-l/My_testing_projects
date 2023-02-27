@@ -1,2 +1,2 @@
 # My_projects
-См. отдельные папки
+See individual folders
