@@ -23,7 +23,7 @@
 - [Report](#report)
 
 # The scheme of the stand
-![DUT](https://github.com/l-SK-l/My_projects/blob/main/VPN%20remote%20access/assets/VPN.png)
+![DUT](https://github.com/l-SK-l/My_testing_projects/blob/main/VPN%20remote%20access%20(ENG)/assets/VPN.png)
 
 ## Description of the components of the stand
 Describes the scheme of the stand with brief explanations of each element

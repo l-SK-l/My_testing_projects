@@ -20,7 +20,7 @@
 - [Отчёт](#отчёт)
 
 # Схема стенда
-![DUT](https://github.com/l-SK-l/My_projects/blob/main/SQUID%20ssl%20inspection/assets/FW.png)
+![DUT](https://github.com/l-SK-l/My_testing_projects/blob/main/SQUID%20ssl%20inspection%20(RU)/assets/FW.png)
 
 ## Описание компонентов стенда
 Описывается схема стенда с краткими пояснениям по каждому элементу

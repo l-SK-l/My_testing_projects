@@ -20,7 +20,7 @@
 - [Report](#report)
 
 # The scheme of the stand
-![DUT](https://github.com/l-SK-l/My_projects/blob/main/SQUID%20ssl%20inspection/assets/FW.png)
+![DUT](https://github.com/l-SK-l/My_testing_projects/blob/main/SQUID%20ssl%20inspection%20(ENG)/assets/FW.png)
 
 ## Description of the components of the stand
 Описывается схема стенда с краткими пояснениям по каждому элементу

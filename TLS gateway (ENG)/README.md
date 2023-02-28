@@ -41,7 +41,7 @@ All modes are tested within a single bench. The bench is selected for the maximu
 By individual manuals.
 
 # The scheme of the stand
-![DUT](https://github.com/l-SK-l/My_projects/blob/main/TLS%20%D1%88%D0%BB%D1%8E%D0%B7/assets/DUT.png)
+![DUT](https://github.com/l-SK-l/My_testing_projects/blob/main/TLS%20gateway%20(ENG)/assets/DUT.png)
 
 ## Description of environment parameters
 A description of the VMs specifications and network interfaces, links to a separate article tuning linux for high load.
@@ -52,7 +52,7 @@ Description of fine-tuning for testing: Licensing, issuing certificates, generat
 ## Interaction
 ### General description of testing
 TLS gateway testing is based on testing web servers with the help of tools located on load machines. Since requests to protected web servers through TLS gateway can be made only through TLS protocol with GOST, emulators are launched on load machines, raising tunnels with TLS gateway over TLS protocol with necessary encryption sets, these tunnels listen to traffic on lo interface with certain ports and redirect requests to tunnel to TLS gateway, and it in its turn to protected resources and back to load machines.
-![interaction](https://github.com/l-SK-l/My_projects/blob/main/TLS%20%D1%88%D0%BB%D1%8E%D0%B7/assets/interaction.png)
+![interaction](https://github.com/l-SK-l/My_testing_projects/blob/main/TLS%20gateway%20(ENG)/assets/interaction.png)
 
 Yandex-Tank in conjunction with Jmeter is used as a load tool. Yandex-Tank is left because of its ease of collecting metrics, as well as because of the easy debugging in case of problems and external monitoring, if a deeper analysis of the results is needed.
 
