@@ -4,8 +4,9 @@
 
 
 ## MindMap
-
+![MindMap](https://github.com/l-SK-l/My_testing_projects/blob/main/API%20Testing%20Firewall%20(ENG)/assets/mindmap.png)
 
 ## Screenshot
+![Screenshot](https://github.com/l-SK-l/My_testing_projects/blob/main/API%20Testing%20Firewall%20(ENG)/assets/example.png)
 
 See the Postman site to learn more on installing and using it.
