@@ -1,2 +1,2 @@
 # My_projects
-See individual folders
+See individual folders.
