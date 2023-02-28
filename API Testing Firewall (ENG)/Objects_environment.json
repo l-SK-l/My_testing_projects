@@ -1,0 +1,177 @@
+{
+	"id": "3f7df013-f425-43d2-b8c2-4fe544df8a56",
+	"name": "Objects_env",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "http://172.17.1.1:8085",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CurrentUuidConf",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CurrentIdConf",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "UuidIpObj",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "UuidIpDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidNetObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidNetDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidRangeObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidRangeDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "VarIpObj",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "VarNetObj",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "VarRangeObj",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "VarUser",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "VarServiceName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "UuidUserObj",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "UuidServiceUdpObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidServiceTcpObj",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "UuidServiceIcmpObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupEmptObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupFullObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupServObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupServDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidUserDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupUsersObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidUserSecondObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "UuidGroupUsersDelObj",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-02-28T16:32:49.136Z",
+	"_postman_exported_using": "Postman/10.11.1-230222-1424"
+}
